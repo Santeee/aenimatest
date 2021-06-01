@@ -5,32 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
-
-const useStyles = makeStyles(
-  (theme) => ({
-    appBar: {
-      position: 'relative',
-    },
-
-    toolbar: {
-      backgroundColor: '#409858',
-      color: 'white',
-    },
-
-    layout: {
-      width: 'auto',
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-        width: 600,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-      },
-    }
-  })
-);
-
-
+import ProductListItem from './components/ProductListItem';
 
 const App = () => {
 
@@ -44,13 +19,14 @@ const App = () => {
     setIsError(false);
 
     return await axios.get('http://localhost:3000/api/products')
-      .then( res => console.log(res) )
+      .then( res => setProducts(res.data) )
+      .then( data => data )
       .catch( err => setIsError(true) )
       .finally( res => setIsLoading(false) );
   }
 
   useEffect(() => {
-    setProducts(getProducts());
+    getProducts();
   }, [])
 
   return (
@@ -77,12 +53,36 @@ const App = () => {
                 We have a problem for fetching the data 😬
               </Typography>
             : products.map( prod => (
-                <div>{prod.name}</div>
+                <ProductListItem key={prod.id} product={prod}></ProductListItem>
               ) )
         }
       </main>
     </div>
   );
 }
+
+const useStyles = makeStyles(
+  (theme) => ({
+    appBar: {
+      position: 'relative',
+    },
+
+    toolbar: {
+      backgroundColor: '#409858',
+      color: 'white',
+    },
+
+    layout: {
+      width: 'auto',
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2),
+      [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+        width: 600,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+      },
+    }
+  })
+);
 
 export default App;
