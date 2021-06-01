@@ -16,13 +16,16 @@ const ProductListItem = ({ product }) => {
     return (
         <Card className={ classes.root }>
 
-            <CardActionArea key={ product.id }>
+            <CardActionArea key={ product.id } onClick={ () => window.location.href = `product/${product.id}`}>
                 <CardMedia
                     className={ classes.cover }
                     image="/static/images/cards/live-from-space.jpg"
                     title="Live from space album cover"
                 />
                 <CardContent>
+                    <Typography gutterBottom variant="h6" component="h6">
+                        #{ product.id }
+                    </Typography>
                     <Typography gutterBottom variant="h5" component="h2">
                         { product.name }
                     </Typography>
