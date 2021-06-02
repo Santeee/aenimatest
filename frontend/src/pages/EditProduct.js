@@ -5,8 +5,10 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import querystring from 'querystring'
 
 const EditProduct = () => {
+
     const classes = useStyles();
     const [image, setImage] = useState('');
     const [name, setName] = useState('');
@@ -35,12 +37,15 @@ const EditProduct = () => {
 
         formData.append(
             "description",
-            description
+            "\""+description+"\""
         );
 
-        await axios.put(`http://localhost:3000/api/products/${id}`, { formData }, {
+
+        formData.append("_method", 'PATCH');
+
+        await axios.post(`http://localhost:3000/api/products/${id}`, formData, {
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    "Content-Type": `multipart/form-data;`,
                 }
             })
             .then( res => window.location.href = '/' )
@@ -51,21 +56,23 @@ const EditProduct = () => {
         setImage(event.target.files[0]);
     };
 
-    const getProduct = async () => {
-        setIsLoading(true);
-        setIsError(false);
-
-        return await axios.get(`http://localhost:3000/api/products/${id}`)
-            .then( res => {
-                setProduct(res.data)
-                setName(res.data.name)
-                setDescription(res.data.description)
-            } )
-            .catch( err => setIsError(true) )
-            .finally( res => setIsLoading(false) );
-    }
 
     useEffect(() => {
+
+        const getProduct = async () => {
+            setIsLoading(true);
+            setIsError(false);
+
+            return await axios.get(`http://localhost:3000/api/products/${id}`)
+                .then( res => {
+                    setProduct(res.data)
+                    setName(res.data.name)
+                    setDescription(res.data.description)
+                } )
+                .catch( err => setIsError(true) )
+                .finally( res => setIsLoading(false) );
+        }
+
         getProduct();
     }, [])
 
@@ -91,7 +98,7 @@ const EditProduct = () => {
                             >
                                 <Typography gutterBottom variant="h6" component="h6">
                                     <strong>Imagen</strong>
-                                    <img src={ product.url_image } width={'100%'}></img>
+                                    <img src={ product.url_image } width={'100%'} alt={"Product"}></img>
                                 </Typography>
                                 <input type="file" name="image" onChange={onFileChange}/>
                                 <TextField id="standard-basic" label="Name" name="name" onChange={(e) => { setName(e.target.value) }} value={name}/>

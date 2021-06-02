@@ -65,7 +65,9 @@ class ProductController extends Controller
             'description' => 'required'
         ]);
 
-        $product->udpate($request->all());
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->save();
 
         if ( isset($request->image) ){
             $product->addMediaFromRequest('image')

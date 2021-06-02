@@ -11,22 +11,23 @@ import axios from 'axios';
 const ProductInfo = () => {
 
     const classes = useStyles();
-    let { id } = useParams();
     const [product, setProduct] = useState({});
     const [isLoading, setIsLoading] = useState(true)
     const [isError, setIsError] = useState(false)
-
-    const getProduct = async () => {
-        setIsLoading(true);
-        setIsError(false);
-
-        return await axios.get(`http://localhost:3000/api/products/${id}`)
-            .then( res => setProduct(res.data) )
-            .catch( err => setIsError(true) )
-            .finally( res => setIsLoading(false) );
-    }
+    let { id } = useParams();
 
     useEffect(() => {
+
+        const getProduct = async () => {
+            setIsLoading(true);
+            setIsError(false);
+
+            return await axios.get(`http://localhost:3000/api/products/${id}`)
+                .then( res => setProduct(res.data) )
+                .catch( err => setIsError(true) )
+                .finally( res => setIsLoading(false) );
+        }
+
         getProduct();
     }, [])
 
@@ -35,6 +36,9 @@ const ProductInfo = () => {
             <Button variant="contained" color="primary" onClick={ () => window.location.href = `/`}>
                 Back
             </Button>
+
+            <br></br>
+            <br></br>
 
             {
             (isLoading)
