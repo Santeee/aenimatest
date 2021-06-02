@@ -19,9 +19,10 @@ docker-compose build
 docker-compose up -d
 docker-compose exec products-backend /bin/sh
     composer install
+    cp .env.example .env
     php artisan storage:link
-    php artisan migrate:fresh --seed
     php artisan config:cache
+    php artisan migrate:fresh --seed
     exit
 sudo chmod 777 -R ./backend/storage/
 sudo chmod 777 -R ./backend/bootstrap/cache

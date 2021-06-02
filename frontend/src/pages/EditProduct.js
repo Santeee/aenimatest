@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import querystring from 'querystring'
 
 const EditProduct = () => {
 
