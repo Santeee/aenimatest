@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import ProductListItem from '../components/ProductListItem';
+import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
 const ListProducts = () => {
@@ -27,6 +28,10 @@ const ListProducts = () => {
 
     return (
         <div>
+            <Button variant="contained" color="primary" onClick={ () => window.location.href = `product/create`}>
+                Add Product
+            </Button>
+
             { (isLoading)
             ? (products.length === 0)
                 ? <Typography variant="body2" color="textSecondary" component="p">

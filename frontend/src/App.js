@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import ListProducts from './pages/ListProducts';
 import ProductInfo from './pages/ProductInfo';
+import CreateProduct from './pages/CreateProduct';
 
 const App = () => {
 
@@ -14,29 +15,28 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-            <AppBar position="absolute" color="default" className={classes.appBar}>
-                <Toolbar className={classes.toolbar}>
-                  <Typography variant="h6" color="inherit" noWrap>
-                    Products
-                  </Typography>
-                </Toolbar>
-            </AppBar>
+        <AppBar position="absolute" color="default" className={classes.appBar}>
+          <Toolbar className={classes.toolbar}>
+            <Typography variant="h6" color="inherit" noWrap>
+              Products
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <br></br>
 
-            <br></br>
-
-            <main className={classes.layout}>
-              <Switch>
-                <Route path="/product/:id">
-                  <ProductInfo />
-                </Route>
-                <Route path="/users">
-                  <ListProducts />
-                </Route>
-                <Route path="/">
-                  <ListProducts />
-                </Route>
-              </Switch>
-            </main>
+        <main className={classes.layout}>
+          <Switch>
+            <Route path="/product/create">
+              <CreateProduct />
+            </Route>
+            <Route path="/product/:id">
+              <ProductInfo />
+            </Route>
+            <Route path="/">
+              <ListProducts />
+            </Route>
+          </Switch>
+        </main>
       </div>
     </Router>
   );
