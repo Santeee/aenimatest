@@ -19,6 +19,6 @@ class ProductsSeeder extends Seeder
         ]);
 
         $product->addMedia(public_path('/images/product-test-2.gif'))
-                ->toMediaCollection();
+                ->toMediaCollection('image');
     }
 }
