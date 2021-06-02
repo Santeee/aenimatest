@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import ListProducts from './pages/ListProducts';
 import ProductInfo from './pages/ProductInfo';
 import CreateProduct from './pages/CreateProduct';
+import EditProduct from './pages/EditProduct';
 
 const App = () => {
 
@@ -28,6 +29,9 @@ const App = () => {
           <Switch>
             <Route path="/product/create">
               <CreateProduct />
+            </Route>
+            <Route path="/product/:id/edit">
+              <EditProduct />
             </Route>
             <Route path="/product/:id">
               <ProductInfo />

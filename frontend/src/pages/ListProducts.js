@@ -43,7 +43,7 @@ const ListProducts = () => {
                     We have a problem for fetching the data 😬
                 </Typography>
                 : products.map( prod => (
-                    <ProductListItem key={prod.id} product={prod}></ProductListItem>
+                    <ProductListItem key={prod.id} product={prod} getProducts={getProducts}></ProductListItem>
                 ) )
             }
         </div>

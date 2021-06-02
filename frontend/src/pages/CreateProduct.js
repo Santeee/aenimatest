@@ -35,7 +35,7 @@ const CreateProduct = () => {
                 "Content-Type": "multipart/form-data",
             }
             })
-            .then( res => alert("Guardado!") )
+            .then( res => window.location.href = '/' )
             .catch( err => console.log(err) );
     }
 
@@ -55,9 +55,6 @@ const CreateProduct = () => {
                 className={classes.root}
                 noValidate
                 autoComplete="off"
-                encType="multipart/form-data"
-                action="http://localhost:3000/api/products"
-                method="POST"
             >
                 <input type="file" name="image" onChange={onFileChange}/>
                 <TextField id="standard-basic" label="Name" name="name" onChange={(e) => { setName(e.target.value) }}/>

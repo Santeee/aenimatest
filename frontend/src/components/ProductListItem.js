@@ -9,9 +9,16 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import axios from 'axios';
 
-const ProductListItem = ({ product }) => {
+const ProductListItem = ({ product, getProducts }) => {
     const classes = useStyles();
+
+    const deleteProduct = () => {
+        axios.delete(`http://localhost:3000/api/products/${product.id}`)
+            .then( res => getProducts() )
+            .catch( err => console.log(err) );
+    }
 
     return (
         <Card className={ classes.root }>
@@ -37,10 +44,10 @@ const ProductListItem = ({ product }) => {
 
             <CardActions>
                 <Button size="small" color="primary">
-                    <EditIcon className={ classes.edit_button } />
+                    <EditIcon className={ classes.edit_button } onClick={ () => window.location.href = `product/${product.id}/edit`}/>
                 </Button>
                 <Button size="small">
-                    <DeleteIcon color="error" />
+                    <DeleteIcon color="error" onClick={deleteProduct} />
                 </Button>
             </CardActions>
 
